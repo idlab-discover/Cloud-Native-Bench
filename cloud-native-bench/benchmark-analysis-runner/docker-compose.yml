@@ -1,0 +1,17 @@
+services:
+  postgres-db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: admin
+    ports:
+      - 5432:5432
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=michiel.vankenhove@ugent.be
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - 80:80

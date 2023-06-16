@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: { { .Values.operator.service.name } }
+  namespace: { { .Values.namespace } }
+  labels: { { - include "cloud-native-bench.labels" . | nindent 4 } }
+spec:
+  type: { { .Values.operator.service.type } }
+  ports:
+    - port: { { .Values.operator.service.port } }
+      targetPort: { { .Values.operator.service.port } }
+      protocol: TCP
+      name: grpc
+  selector:
+    { { - include "cloud-native-bench.operator.selectorLabels" . | nindent 4 } }

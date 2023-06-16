@@ -1,0 +1,13 @@
+[workspace]
+
+members = [
+    "benchmark-cpu",
+    "benchmark-fibonacci-cpu",
+    "benchmark-operator",
+    "benchmark-proto",
+    "benchmark-grpc",
+    "benchmark-criterion-result-adapter",
+    "benchmark-adapter-types",
+    "benchmark-web-backend",
+    "benchmark-database-interface",
+]

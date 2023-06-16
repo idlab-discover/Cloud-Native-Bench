@@ -1,0 +1,24 @@
+syntax = "proto3";
+package benchmark_framework;
+
+service BenchmarkService {
+    rpc BenchmarkStarted (BenchmarkStartRequest) returns (BenchmarkStartedResponse);
+    rpc BenchmarkDone (BenchmarkDoneRequest) returns (BenchmarkDoneResponse);
+}
+
+
+message BenchmarkStartRequest {
+    bool running = 1;
+}
+
+message BenchmarkStartedResponse {
+    string database_connection_string = 1;
+}
+
+message BenchmarkDoneRequest {
+    bool done = 1;
+}
+
+message BenchmarkDoneResponse {
+    bool acknowledge = 1;
+}

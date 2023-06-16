@@ -1,0 +1,58 @@
+# Default values for cloud-native-bench.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+serviceAccount:
+  name: "cloud-native-bench-sa"
+namespace: "cloud-native-bench"
+imagePullSecrets:
+  - name: gitlab-deploy-token
+podSecurityContext:
+  runAsUser: 1000
+securityContext:
+  allowPrivilegeEscalation: false
+nodeSelector:
+  cloud-native-bench/runner: operator
+
+web:
+  name: "cloud-native-bench-web"
+  image:
+    repository: gitlab.ilabt.imec.be:4567/phd_michiel-van-kenhove/benchmarking-framework/benchmark-web-backend
+    pullPolicy: Always
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "latest"
+  service:
+    name: "cloud-native-bench-web-service"
+    type: ClusterIP
+    port: 3000
+
+operator:
+  name: "cloud-native-bench-operator"
+  image:
+    repository: gitlab.ilabt.imec.be:4567/phd_michiel-van-kenhove/benchmarking-framework/benchmark-operator
+    pullPolicy: Always
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "latest"
+  service:
+    name: "cloud-native-bench-operator-service"
+    type: ClusterIP
+    port: 50051
+
+analysis:
+  name: "cloud-native-bench-analysis"
+  image:
+    repository: gitlab.ilabt.imec.be:4567/phd_michiel-van-kenhove/benchmarking-framework/benchmark-analysis-runner
+    pullPolicy: Always
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "latest"
+
+postgresql:
+  primary:
+    nodeSelector:
+      cloud-native-bench/runner: operator
+
+global:
+  postgresql:
+    auth:
+      postgresPassword: "admin"

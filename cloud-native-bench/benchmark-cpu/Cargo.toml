@@ -1,0 +1,14 @@
+[package]
+name = "benchmark-cpu"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tokio = { version = "1.27.0", features = ["macros", "rt-multi-thread"] }
+benchmark-grpc = { path = "../benchmark-grpc" }
+dotenv = "0.15.0"
+benchmark-database-interface = { path = "../benchmark-database-interface" }
+benchmark-adapter-types = { path = "../benchmark-adapter-types" }
+regex = "1.8.1"
