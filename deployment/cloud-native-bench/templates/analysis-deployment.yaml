@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.analysis.name }}
-  namespace: {{ .Values.namespace }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "cloud-native-bench.labels" . | nindent 4 }}
 spec:
@@ -29,7 +29,7 @@ spec:
           imagePullPolicy: {{ .Values.analysis.image.pullPolicy }}
           env:
             - name: DATABASE_URL
-              value: "postgresql://postgres:admin@{{ .Release.Name }}-postgresql.benchmark-operator.svc.cluster.local:5432/benchmarks"
+              value: "postgresql://postgres:admin@{{ .Release.Name }}-postgresql.{{ .Release.Namespace }}.svc.cluster.local:5432/benchmarks"
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

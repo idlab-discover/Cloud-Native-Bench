@@ -5,20 +5,19 @@
 replicaCount: 1
 serviceAccount:
   name: "cloud-native-bench-sa"
-namespace: "cloud-native-bench"
-imagePullSecrets:
-  - name: gitlab-deploy-token
+# imagePullSecrets:
+#   - name: gitlab-deploy-token
 podSecurityContext:
   runAsUser: 1000
 securityContext:
   allowPrivilegeEscalation: false
 nodeSelector:
-  cloud-native-bench/runner: operator
+  cloud-native-bench/runner: operator # Label a worker node that should run the operator. It is advised that the operator worker node is isolated from nodes that perform benchmarks.
 
 web:
   name: "cloud-native-bench-web"
   image:
-    repository: gitlab.ilabt.imec.be:4567/phd_michiel-van-kenhove/benchmarking-framework/benchmark-web-backend
+    repository: gitlab.ilabt.imec.be:4567/mvkenhov/phd-registry/benchmark-web-backend
     pullPolicy: Always
     # Overrides the image tag whose default is the chart appVersion.
     tag: "latest"
@@ -30,7 +29,7 @@ web:
 operator:
   name: "cloud-native-bench-operator"
   image:
-    repository: gitlab.ilabt.imec.be:4567/phd_michiel-van-kenhove/benchmarking-framework/benchmark-operator
+    repository: gitlab.ilabt.imec.be:4567/mvkenhov/phd-registry/benchmark-operator
     pullPolicy: Always
     # Overrides the image tag whose default is the chart appVersion.
     tag: "latest"
@@ -42,7 +41,7 @@ operator:
 analysis:
   name: "cloud-native-bench-analysis"
   image:
-    repository: gitlab.ilabt.imec.be:4567/phd_michiel-van-kenhove/benchmarking-framework/benchmark-analysis-runner
+    repository: gitlab.ilabt.imec.be:4567/mvkenhov/phd-registry/benchmark-analysis-runner
     pullPolicy: Always
     # Overrides the image tag whose default is the chart appVersion.
     tag: "latest"

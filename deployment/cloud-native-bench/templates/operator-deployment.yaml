@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.operator.name }}
-  namespace: {{ .Values.namespace }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "cloud-native-bench.labels" . | nindent 4 }}
 spec:
@@ -32,7 +32,7 @@ spec:
             - name: GRPC_SOCKET_ADDRESS
               value: "0.0.0.0:50051"
             - name: DATABASE_URL
-              value: "postgresql://postgres:admin@{{ .Release.Name }}-postgresql.benchmark-operator.svc.cluster.local:5432/benchmarks"
+              value: "postgresql://postgres:admin@{{ .Release.Name }}-postgresql.{{ .Release.Namespace }}.svc.cluster.local:5432/benchmarks"
           ports:
             - name: http
               containerPort: {{ .Values.operator.service.port }}
